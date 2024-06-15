@@ -1,0 +1,6 @@
+openai
+PyMuPDF
+faiss-cpu
+sentence-transformers
+prompt_toolkit
+python-dotenv
