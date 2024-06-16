@@ -5,6 +5,7 @@ from vector_db import VectorDatabase
 from chatbot import generate_response
 from verifier import verify_response
 import os
+import numpy as np
 
 def main():
     file_path = 'document.pdf'
@@ -14,16 +15,17 @@ def main():
         return
     
     pdf_text = parse_pdf(file_path)
-    sentences, embeddings = get_embeddings(pdf_text)
+    paragraphs, paragraph_embeddings = get_embeddings(pdf_text)
     db = VectorDatabase()
-    db.add_embeddings(embeddings, sentences)
+    db.add_embeddings(paragraph_embeddings, paragraphs)
     
     session = PromptSession()
     while True:
         query = session.prompt('You: ')
         if query.lower() in ['exit', 'quit']:
             break
-        response = generate_response(query)
+        query_embedding = np.array(get_embeddings(query)[1]).reshape(1, -1)
+        response = generate_response(query, query_embedding, paragraphs, paragraph_embeddings)
         if verify_response(response, db):
             print("Chatbot: ", response)
         else:

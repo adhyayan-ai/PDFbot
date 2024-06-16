@@ -4,22 +4,17 @@ import numpy as np
 class VectorDatabase:
     def __init__(self, dim=384):
         self.index = faiss.IndexFlatL2(dim)
-        self.sentences = []
+        self.paragraphs = []
 
-    def add_embeddings(self, embeddings, sentences):
-        if len(embeddings) == 0:
-            print("No embeddings to add.")
-            return
+    def add_embeddings(self, embeddings, paragraphs):
         self.index.add(embeddings)
-        self.sentences.extend(sentences)
+        self.paragraphs.extend(paragraphs)
 
     def search(self, embedding, k=5):
         if embedding.ndim == 1:
             embedding = np.expand_dims(embedding, axis=0)
         D, I = self.index.search(embedding, k)
-        print("Search Distances:", D)  # Debugging statement
-        print("Search Indices:", I)  # Debugging statement
-        relevant_texts = [self.sentences[i] for i in I[0]]
+        relevant_texts = [self.paragraphs[i] for i in I[0]]
         return D, I, relevant_texts
 
     def reconstruct_n(self, indices):
