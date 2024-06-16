@@ -35,7 +35,7 @@ def generate_response(query, query_embedding, paragraphs, paragraph_embeddings):
     response = client.chat.completions.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "You are a helpful assistant. Use the following context to accurately answer the user's query by referring to these relevant texts. "},
             {"role": "user", "content": f"{query}\n\nContext: {context_str}"}
         ]
     )
