@@ -1,8 +1,8 @@
 # **PDFBot**
 
 PDFBot is an intelligent chatbot designed to generate responses enriched by
-information from a specific PDF document. Using advanced NLP
-techniques and a vector database, PDFBot effectively mitigates hallucinations
+information from a specific PDF document. Using advanced LLM
+techniques through OpenAI's GPT-4 API and a FAISS vector database, PDFBot effectively mitigates hallucinations
 and ensures accurate responses.
 
 ## **System Architecture**
