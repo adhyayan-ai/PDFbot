@@ -110,3 +110,27 @@ following strategy is employed:
 5.  **Response Verification**: If the similarity exceeds the dynamic
     threshold, the response is considered verified. Otherwise, the
     response is flagged as potentially inaccurate.
+
+## **Challenges Encountered**
+
+1.  **Embedding Dimensionality Issues**: The embeddings generated from
+    the sentences didn't match the expected dimensions in the FAISS
+    vector database. This was fixed shortly after.
+
+2.  **Handling Large PDFs**: Efficiently parsing and processing large
+    PDF documents was difficult without running into memory issues or
+    performance bottlenecks. This was fixed shortly after.
+
+3.  **Verification Accuracy**: Fine-tuning the verification mechanism
+    took quite a bit of time to ensure it accurately detects
+    hallucinations without being too lenient or too strict.
+
+## **Other Key Learnings**
+
+1.  **Effective Use of Vector Databases**: Leveraging FAISS for fast and
+    efficient similarity searches, which significantly improves the
+    performance of response verification.
+
+2.  **Dynamic Thresholding**: I implemented a dynamic threshold based on
+    statistical measures (mean and standard deviation) of similarities
+    to effectively balance between verification strictness and leniency.
