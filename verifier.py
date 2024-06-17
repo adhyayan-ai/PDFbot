@@ -9,6 +9,9 @@ def verify_response(response, db):
 
     reconstructed_embeddings = db.reconstruct_n(indices[0])
     similarities = cosine_similarity(response_embedding, reconstructed_embeddings)
+    mean_similarity = np.mean(similarities[0])
+    std_similarity = np.std(similarities[0])
+    
     dynamic_threshold = mean_similarity + 0.5 * std_similarity
 
     verified = any(sim >= dynamic_threshold for sim in similarities[0])
